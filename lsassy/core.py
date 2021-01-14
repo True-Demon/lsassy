@@ -18,14 +18,14 @@ lock = RLock()
 
 class Lsassy:
     def __init__(self,
-                 hostname, username, domain="", password="", lmhash="", nthash="",
+                 hostname, username, domain="", password="", lmhash="", nthash="", conn_timeout=5,
                  log_options=Logger.Options(),
                  dump_options=Dumper.Options(),
                  parse_options=Parser.Options(),
                  write_options=Writer.Options()
                  ):
 
-        self.conn_options = ImpacketConnection.Options(hostname, domain, username, password, lmhash, nthash)
+        self.conn_options = ImpacketConnection.Options(hostname, domain, username, password, lmhash, nthash, conn_timeout)
         self.log_options = log_options
         self.dump_options = dump_options
         self.parse_options = parse_options
@@ -171,6 +171,7 @@ class CLI:
                 self.conn_options.lmhash, self.conn_options.nthash = args.hashes.split(":")
             else:
                 self.conn_options.lmhash, self.conn_options.nthash = 'aad3b435b51404eeaad3b435b51404ee', args.hashes
+        self.conn_options.timeout = args.conn_timeout
 
         # Dumper Options
         self.dump_options.dumpname = args.dumpname

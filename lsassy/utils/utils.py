@@ -46,6 +46,8 @@ def get_args():
     group_auth.add_argument('-p', '--password', action='store', help='Plaintext password')
     group_auth.add_argument('-d', '--domain', default="", action='store', help='Domain name')
     group_auth.add_argument('-H', '--hashes', action='store', help='[LM:]NT hash')
+    group_auth.add_argument('-T', '--conn-timeout', action='store', default=5, type=int,
+                            help='Timeout value before connection to host is abandoned')
 
     group_out = parser.add_argument_group('output')
     group_out.add_argument('-o', '--outfile', action='store', help='Output credentials to file')
